@@ -2,7 +2,7 @@
 
 Bu projedeki veri kümesi hazır bir kaynaktan alınmamış; tamamen tarafımdan geliştirilen veri toplama mimarisi ile **özgün (custom)** olarak sıfırdan inşa edilmiştir.
 
-### 🛰️ Veri Toplama Süreci ve Grid (Izgara) Tarama Sistemi
+###  Veri Toplama Süreci ve Grid (Izgara) Tarama Sistemi
 - **Veri Kaynağı:** Görseller, Google Static Maps API entegrasyonu kullanılarak dinamik olarak çekilmiştir.
 - **Tarama Algoritması (`indir.py`):** Belirlenen stratejik coğrafi lokasyonların (koordinat sınırları), enlem ve boylam adımları üzerinden otomatik bir grid (ızgara) tarama algoritmasıyla taranması sağlanmıştır. Bu sayede manuel veri toplama hatalarının önüne geçilmiştir.
 - **Çeşitlilik ve Genelleme Kapasitesi:** Modelin farklı coğrafi, spektral ve ışık koşullarında genelleme yeteneğini (generalization) artırmak adına dünya genelinde karakteristiği birbirinden tamamen farklı **4 ana lokasyon** taranmıştır:
