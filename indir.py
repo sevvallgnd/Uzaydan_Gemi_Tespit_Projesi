@@ -3,7 +3,7 @@ import os
 import time
 
 
-API_KEY = 'AIzaSyAWXMx7GIwwQhnl2fC-oBNpG4ha0DyEXDQ'
+API_KEY = 'Buraya_Kendi_Anahtarınızı_Girin'
 SAVE_DIR = "Grid_VeriSeti_Bahamalar" 
 os.makedirs(SAVE_DIR, exist_ok=True)
 
