@@ -1,0 +1,5 @@
+train: C:\Gemi_Projesi\Uzaydan_Gemi_Tespit_Sistemi-1\train\images
+val: C:\Gemi_Projesi\Uzaydan_Gemi_Tespit_Sistemi-1\valid\images
+
+nc: 1
+names: ['ship']
