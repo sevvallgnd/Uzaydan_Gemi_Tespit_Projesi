@@ -15,3 +15,15 @@ Bu projedeki veri kümesi hazır bir kaynaktan alınmamış; tamamen tarafımdan
 Toplam **763 adet** özgün uydu görüntüsü toplanmış ve derin öğrenme modelinin veri yükleme akışına (`DataLoader`) uygun olarak şu hiyerarşide sınıflandırılmıştır:
 - **`Gemi Var/`** -> `ambarli_1`, `bahamalar_1`, `norvec_1`, `tuzla_1` (Gemi/tekne içeren pikseller)
 - **`Gemi Yok/`** -> `ambarli_2`, `bahamalar_2`, `norvec_2`, `tuzla_2` (Boş deniz, kara, bulut ve kıyı yapıları)
+
+## Sprint 3: Derin Eğitim ve Optimizasyon (09.06.2026)
+Model yerel ortam kısıtlamalarından çıkarılarak **Google Colab (T4 GPU)** bulut platformuna taşınmıştır. 
+Önerilen YOLOv8n mimarisi, özgün veri kümesindeki 3842 gemi nesnesi üzerinden **100 Epoch** boyunca derin eğitime tabi tutulmuştur.
+
+* **Eğitim Süresi:** 0.622 saat (~37 dakika)
+* **Precision (Kesinlik):** %68.4
+* **Recall (Duyarlılık):** %50.6
+* **mAP50 Başarı Skoru:** **%56.6** (Akademik baseline başarı esiği aşılmıştır)
+* **Inference (Çıkarım Hızı):** Görsel başına **2.4 ms** ile gerçek zamanlı tespite hazır hale getirilmiştir.
+
+Eğitilen en kararlı ağırlık dosyasına `outputs/weights/best.pt` konumundan, 100 Epoch'luk pürüzsüz loss ve başarı eğrilerine ise `outputs/results.png` üzerinden erişilebilir.
