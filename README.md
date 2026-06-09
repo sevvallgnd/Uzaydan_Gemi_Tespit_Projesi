@@ -16,6 +16,19 @@ Toplam **763 adet** özgün uydu görüntüsü toplanmış ve derin öğrenme mo
 - **`Gemi Var/`** -> `ambarli_1`, `bahamalar_1`, `norvec_1`, `tuzla_1` (Gemi/tekne içeren pikseller)
 - **`Gemi Yok/`** -> `ambarli_2`, `bahamalar_2`, `norvec_2`, `tuzla_2` (Boş deniz, kara, bulut ve kıyı yapıları)
 
+## 📉 Sprint 2: Manuel Veri Etiketleme, Lokal Baseline Model ve Altyapı Hazırlığı (02.06.2026)
+Projenin bu aşamasında, uydu görüntülerinden oluşan ham veri kümesi üzerinde yüksek doğruluklu tahminler elde edebilmek amacıyla kapsamlı bir veri işleme ve manuel etiketleme (data annotation) süreci yürütülmüştür. Ardından yerel donanım üzerinde YOLOv8n mimarisiyle ilk prototip (baseline) denemeleri gerçekleştirilmiştir.
+
+* **Manuel Veri Hazırlığı & Etiketleme:** Toplanan ham uydu fotoğrafları üzerindeki **3842 adet gemi nesnesi (instance) tek tek el ile (manuel)** bounding box (tahmin kutusu) kullanılarak etiketlenmiş ve YOLO formatına uygun hale getirilmiştir. Veri setinin kalitesini artırmak adına etiketleme standardı maksimum hassasiyette tutulmuştur.
+* **Eğitim Ortamı:** Lokal Donanım (Intel CPU / Entegre Grafik Birimi)
+* **Veri Seti Yapısı:** Roboflow üzerinde işlenen 763 adet özgün ve el ile etiketlenmiş uydu görüntüsü.
+* **Hiperparametreler:** `epochs=1`, `batch=16`, `imgsz=640`
+* **Karşılaşılan Kısıtlamalar:** Yerel bilgisayardaki CUDA/GPU destek yetersizliği nedeniyle eğitim tamamen CPU üzerine yüklenmiş, işlem sürelerinin aşırı uzaması ve donanım darboğazı (thermal throttling) sebebiyle derin eğitim (high epoch) döngülerine geçilememiştir.
+
+### 🛠️ Çözülen Teknik Zorluklar
+* **Veri Yolu (Path) Senkronizasyonu:** Yerel ortamdaki `data.yaml` dosyasının klasör hiyerarşisi, kütüphane okuma hatalarını engellemek adına mutlak yollarla (absolute paths) optimize edilmiştir.
+* **Baseline Çıktısı:** Modelin rastgele tahmin ağırlıklarından sıyrılması amacıyla 1 Epoch'luk ilk deneme başarıyla tamamlanmış, bulut tabanlı GPU geçişinin (Sprint 3) mühendislik gerekçesi ve baseline metrik taban çizgisi oluşturulmuştur.
+
 ## Sprint 3: Derin Eğitim ve Optimizasyon (09.06.2026)
 Model yerel ortam kısıtlamalarından çıkarılarak **Google Colab (T4 GPU)** bulut platformuna taşınmıştır. 
 Önerilen YOLOv8n mimarisi, özgün veri kümesindeki 3842 gemi nesnesi üzerinden **100 Epoch** boyunca derin eğitime tabi tutulmuştur.
