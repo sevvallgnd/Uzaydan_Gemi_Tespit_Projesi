@@ -40,3 +40,37 @@ Model yerel ortam kısıtlamalarından çıkarılarak **Google Colab (T4 GPU)** 
 * **Inference (Çıkarım Hızı):** Görsel başına **2.4 ms** ile gerçek zamanlı tespite hazır hale getirilmiştir.
 
 Eğitilen en kararlı ağırlık dosyasına `outputs/weights/best.pt` konumundan, 100 Epoch'luk pürüzsüz loss ve başarı eğrilerine ise `outputs/results.png` üzerinden erişilebilir.
+
+# 🛰️ Uzaydan Gemi Tespit Sistemi (Sprint 4)
+
+Google Static Maps API ile özgün olarak toplanan uydu görüntüleri üzerinden, **YOLOv8** mimarisi kullanılarak geliştirilmiş yapay zeka tabanlı bir nesne tespiti (Object Detection) projesidir. Proje, son kullanıcı için interaktif bir **Streamlit** web arayüzü ile canlıya alınmıştır.
+
+---
+
+## Sprint 4: Neler Yapıldı? 
+
+Sprint 3 sonundaki Hata Matrisi analizinde modelin küçük gemileri kaçırdığı (Düşük Recall) görülmüştür. Bu problemi çözmek için Sprint 4'te şu optimizasyonlar yapılmıştır:
+
+* **3x Veri Artırımı (Augmentation):** Ham veri kümesi (763 görsel), Roboflow üzerinde döndürme, parlaklık ve kırpma filtreleriyle **2.289 görsele** çıkarılarak zenginleştirilmiştir.
+* **Recall Odaklı Fine-Tuning:** Google Colab (Tesla T4 GPU) üzerinde 100 Epoch derin eğitim yapılmıştır. Küçük nesneleri yakalamak için öğrenme oranı (`lr0=0.01`) optimize edilmiştir.
+* **Overfitting Koruması:** `patience=15` (Erken Durdurma) mekanizması eklenerek modelin ezberlemesi engellenmiş ve en kararlı ağırlık (`best.pt`) seçilmiştir.
+🛠️ İnteraktif Arayüz Özellikleri (Streamlit)
+
+Ham model metriklerinin üzerindeki kısıtlamaları aşmak için `app.py` web paneline iki dinamik saha çözümü entegre edilmiştir:
+
+1. **Dinamik Güven Eşiği (Confidence Slider):** Kullanıcı güven eşiğini %20-25 bandına çekerek en küçük gemi/tekne piksellerini bile ekranda yakalayabilir (Pratik Recall artışı).
+2. **Test-Time Augmentation (TTA):** Çıkarım anında görsele anlık kontrast filtreleri uygulayarak hatalı negatif (gözden kaçırma) oranını minimize eder.
+
+---
+
+## 💻 Yerelde Çalıştırma Kurulumu
+
+```bash
+# 1. Proje klasörüne gidin
+cd Gemi_Projesi
+
+# 2. Gerekli kütüphaneleri indirin
+pip install -r requirements.txt
+
+# 3. Web uygulamasını başlatın
+streamlit run app.py
