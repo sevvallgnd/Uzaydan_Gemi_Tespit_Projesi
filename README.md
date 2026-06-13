@@ -74,3 +74,9 @@ pip install -r requirements.txt
 
 # 3. Web uygulamasını başlatın
 streamlit run app.py
+
+## Proje Demo Videosu
+
+Modelin canlı arayüz üzerinde nasıl çalıştığını, dinamik güven eşiği (slider) ve TTA optimizasyonlarının saha performansını aşağıdaki bağlantı üzerinden izleyebilirsiniz:
+
+👉 [Uzaydan Gemi Tespit Sistemi - Canlı Demo Videosunu İzlemek İçin Tıklayın](https://drive.google.com/drive/u/0/folders/1gMPjI9FSVl9GtaUP7yryRn47k3RRMVGT)
